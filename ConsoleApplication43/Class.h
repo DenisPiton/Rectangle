@@ -2,12 +2,34 @@
 #include <iostream>
 
 using namespace std;
+class Rectangle2;
 class Rectangle1 {
+	friend Rectangle2;
 	int x;
 	int y;
 	int xO;
 	int yO;
 	bool xb = 0, yb = 0;
+	void print()
+	{
+		for (size_t i = 0; i < yO; i++)
+		{
+			cout << endl;
+		}
+
+		for (size_t i = 0; i < y; i++)
+		{
+			for (size_t i = 0; i < xO; i++)
+			{
+				cout << "   ";
+			}
+			for (size_t j = 0; j < x; j++)
+			{
+				cout << "#  ";
+			}
+			cout << endl;
+		}
+	}
 public:
 
 	Rectangle1(int x, int y, int xO, int yO) :x{ x }, y{ y }, xO{ xO }, yO{ yO } {}
@@ -32,6 +54,19 @@ public:
 		}
 
 		return ost;
+	}
+	friend istream& operator>>(istream& in, Rectangle1& r)
+	{
+		int x1;
+		int y1;
+		int xO1;
+		int yO1;
+		in >> x1 >> y1 >> xO1 >> yO1;
+		r.x = x1;
+		r.y = y1;
+		r.xO = xO1;
+		r.yO = yO1;
+		return in;
 	}
 	void operator += (int n) {
 		x += n;
@@ -77,5 +112,16 @@ public:
 			perm(-1, 1);
 		}
 	}
+
+};
+
+class Rectangle2 {
+	Rectangle1 rec;
+public:
+	void prnt()
+	{
+		rec.print();
+	}
+
 
 };
